@@ -12,4 +12,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to docker registry
-      run: echo "registry token : ${{ REGISTRY_TOKEN}} "
+      run: echo "registry token : ${{ secrets.REGISTRY_TOKEN}} "
