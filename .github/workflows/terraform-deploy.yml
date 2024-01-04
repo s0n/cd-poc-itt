@@ -11,6 +11,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: install az cli
+      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash 
+
+    - name: Azure login
+      working-directory: ./containerization/infrastructure/deploy-kubernetes
+      env:
+        AZ_USER: ${{  secrets.AZ_USER  }}
+        AZ_PASSWORD: ${{  secrets.AZ_PASSWORD  }}
+      run: az login --username $AZ_USER --password AZ_PASSWORD
 
     - name: 
       working-directory: ./containerization/infrastructure/deploy-kubernetes
@@ -18,7 +28,4 @@ jobs:
 
     - name: 
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      env:
-        TENANT_ID: ${{  secrets.TENANT_ID  }}
-        SUBSCRIPTION_ID: ${{  secrets.SUBSCRIPTION_ID  }}
-      run: terraform plan -var tenant_id="$TENANT_ID" -var subscription_id="$SUBSCRIPTION_ID"
+      run: terraform plan
