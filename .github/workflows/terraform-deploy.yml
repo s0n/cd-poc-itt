@@ -14,4 +14,4 @@ jobs:
 
     - name: 
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      run: terraform plan
+      run: terraform init
