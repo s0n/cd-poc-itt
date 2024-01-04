@@ -12,7 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Login to docker registry
-      env: 
-        registry_token: ${{ secrets.REGISTRY_TOKEN }}
-      run: terraform
+    - name: 
+      working-directory: ./containerization/infrastructure/deploy-kubernetes
+      run: terraform plan
