@@ -8,10 +8,6 @@ provider "azurerm" {
 }
 
 
-variable "client_secret" {
-    type = string
-}
-
 /*data "azurerm_container_registry" "poc_registry" {
   name                = "pocDevopsITT"
   resource_group_name = "poc-devops-itt"
