@@ -19,17 +19,16 @@ jobs:
         ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
         ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
       run: |
-        touch az_var
-        echo ARM_CLIENT_ID="$ARM_CLIENT_ID" >> az_var
-        echo ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET" >> az_var
-        echo ARM_TENANT_ID="$ARM_TENANT_ID" >> az_var
-        echo ARM_SUBSCRIPTION_ID="$ARM_SUBSCRIPTION_ID" >> az_var
-        source az_var
+        touch az_var.txt
+        echo ARM_CLIENT_ID="$ARM_CLIENT_ID" >> az_var.txt
+        echo ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET" >> az_var.txt
+        echo ARM_TENANT_ID="$ARM_TENANT_ID" >> az_var.txt
+        echo ARM_SUBSCRIPTION_ID="$ARM_SUBSCRIPTION_ID" >> az_var.txt
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      run: terraform init
+      run: source az_var.txt
 
     - name: Try terraform plan
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      run: terraform plan
+      run: echo "coucou"
