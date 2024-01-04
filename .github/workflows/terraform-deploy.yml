@@ -20,7 +20,7 @@ jobs:
       env:
         AZ_USER: ${{  secrets.AZ_USER  }}
         AZ_PASSWORD: ${{  secrets.AZ_PASSWORD  }}
-      run: az login --username $AZ_USER --password AZ_PASSWORD
+      run: az login --username $AZ_USER --password $AZ_PASSWORD
 
     - name: 
       working-directory: ./containerization/infrastructure/deploy-kubernetes
