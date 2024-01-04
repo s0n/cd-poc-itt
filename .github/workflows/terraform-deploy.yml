@@ -24,12 +24,12 @@ jobs:
         echo ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET" >> az_var
         echo ARM_TENANT_ID="$ARM_TENANT_ID" >> az_var
         echo ARM_SUBSCRIPTION_ID="$ARM_SUBSCRIPTION_ID" >> az_var
-        cat az_var
+        source az_var
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      run: printenv
+      run: terraform init
 
     - name: Try terraform plan
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      run: echo $ARM_CLIENT_ID
+      run: terraform plan
