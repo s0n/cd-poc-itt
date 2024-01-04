@@ -26,7 +26,7 @@ jobs:
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-kubernetes
-      run: echo $ARM_CLIENT_ID
+      run: printenv
 
     - name: Try terraform plan
       working-directory: ./containerization/infrastructure/deploy-kubernetes
