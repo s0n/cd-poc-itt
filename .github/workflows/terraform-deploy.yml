@@ -11,9 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: install az cli
-      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash 
 
     - name: Set Azure credentials
       env:
@@ -27,10 +24,10 @@ jobs:
         export ARM_TENANT_ID="$ARM_TENANT_ID"
         export ARM_SUBSCRIPTION_ID="$ARM_SUBSCRIPTION_ID"
 
-    - name: 
+    - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-kubernetes
       run: terraform init
 
-    - name: 
+    - name: Try terraform plan
       working-directory: ./containerization/infrastructure/deploy-kubernetes
       run: terraform plan
