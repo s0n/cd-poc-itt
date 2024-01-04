@@ -18,7 +18,13 @@ jobs:
         ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
         ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
         ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
-      run: printenv
+      run: |
+        touch az_var
+        echo ARM_CLIENT_ID="$ARM_CLIENT_ID" >> az_var
+        echo ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET" >> az_var
+        echo ARM_TENANT_ID="$ARM_TENANT_ID" >> az_var
+        echo ARM_SUBSCRIPTION_ID="$ARM_SUBSCRIPTION_ID" >> az_var
+        cat az_var
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-kubernetes
