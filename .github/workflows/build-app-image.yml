@@ -29,10 +29,7 @@ jobs:
       
     - name: build docker image
       working-directory: ./containerization/image-build
-      run: docker build . --tag sngbango/app-poc:0.2
-
-    - name: check image
-      run: docker images
+      run: docker build . --tag sngbango/app-poc:latest
 
     - name: Push images
-      run: docker push sngbango/app-poc:0.2
+      run: docker push sngbango/app-poc:latest
