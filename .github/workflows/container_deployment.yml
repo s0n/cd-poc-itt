@@ -15,7 +15,7 @@ jobs:
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform init
+      run: terraform init -var client_secret="$ARM_CLIENT_SECRET"
 
     - name: Try terraform plan
       env:
