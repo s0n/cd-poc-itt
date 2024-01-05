@@ -5,6 +5,37 @@ on:
   workflow_dispatch:
 
 jobs:
+  
+
+  build_docker_image:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login to docker registry
+      env: 
+        registry_token: ${{ secrets.REGISTRY_TOKEN }}
+      run: docker login -u sngbango -p $registry_token
+    
+    - name: Create env file
+      working-directory: ./containerization/image-build
+      env:
+        MONGO_URI: ${{  secrets.MONGO_URI  }}
+        HOST_URL: ${{  secrets.HOST_URL  }}
+      run: |
+        touch .env
+        echo MONGO_URI=$MONGO_URI >> .env
+        echo HOST_URL=$HOST_URL >> .env
+      
+    - name: build docker image
+      working-directory: ./containerization/image-build
+      run: docker build . --tag sngbango/app-poc:latest
+
+    - name: Push images
+      run: docker push sngbango/app-poc:latest
+    
 
   build_k8s_cluster:
 
@@ -22,18 +53,24 @@ jobs:
         ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
       working-directory: ./containerization/infrastructure/deploy-kubernetes
       run: terraform plan -var client_secret="$ARM_CLIENT_SECRET"
-    
-    - name: test k8S
-      run: kubectl
 
-    #- name: Creation of kubernetes cluster
-    #  env:
-    #    ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
-    #  working-directory: ./containerization/infrastructure/deploy-kubernetes
-    #  run: terraform apply -var client_secret="$ARM_CLIENT_SECRET"
+    - name: Creation of kubernetes cluster
+      env:
+        ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
+      working-directory: ./containerization/infrastructure/deploy-kubernetes
+      run: terraform apply -var client_secret="$ARM_CLIENT_SECRET" -auto-approve
 
-    #- name: get kubeconfig
-    #  working-directory: ./containerization/infrastructure/deploy-kubernetes
-    #  run: terraform output -raw kube_config > kubeconfig.conf
+    - name: get kubeconfig
+      working-directory: ./containerization/infrastructure/deploy-kubernetes
+      run: terraform output -raw kube_config > kubeconfig.conf
   
-#  create ressource:
+    - name: Set kubeconfig
+      working-directory: ./containerization/infrastructure/deploy-kubernetes
+      run: export KUBECONFIG=kubeconfig.conf
+    
+    - name: Install application in cluster
+      working-directory: .containerization/infrastructure/deploy-kubernetes/manifests
+      run: |
+        kubectl apply -f 01-namespace.yaml
+        kubectl apply -f 02-deployment.yaml
+        kubectl apply -f 03-service.yaml
