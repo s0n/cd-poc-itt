@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-      resource_group_name  = "tfstate"
+      resource_group_name  = "poc-devops-ressource-group"
       storage_account_name = "pocstorageaccountitt"
       container_name       = "tfstate"
       key                  = "terraform.tfstate"
