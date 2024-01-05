@@ -13,7 +13,7 @@ variable "client_secret" {
 
 resource "azurerm_resource_group" "rg" {
   name     = "MyTFRssourceGroup"
-  location = "westus2"
+  location = "eastus"
 }
 
 resource "azurerm_kubernetes_cluster" "k8s_cluster" {
