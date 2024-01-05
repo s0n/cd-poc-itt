@@ -8,7 +8,7 @@ resource "azurerm_container_group" "conatainer-poc" {
 
   container {
     name   = "poc-devops-container"
-    image  = "sngbango/app-poc:0.1"
+    image  = "sngbango/app-poc:latest"
     cpu    = "0.5"
     memory = "1.5"
     ports {
