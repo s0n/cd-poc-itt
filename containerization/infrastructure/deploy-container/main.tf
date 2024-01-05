@@ -12,7 +12,7 @@ variable "client_secret" {
 }
 
 resource "azurerm_resource_group" "rg-container" {
-  name     = "MyTFRssourceGroup"
+  name     = "MyTFRssourceGroup-Container"
   location = "eastus"
 }
 
