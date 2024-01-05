@@ -6,7 +6,7 @@ on:
 
 jobs:
   
-  build_k8s_cluster:
+  deploy_on_azure_container_service:
 
     runs-on: ubuntu-latest
 
