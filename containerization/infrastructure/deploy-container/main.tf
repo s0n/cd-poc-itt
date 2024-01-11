@@ -1,3 +1,19 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+  }
+  backend "azurerm" {
+      resource_group_name  = "poc-ressource-group"
+      storage_account_name = "tfstatepocdevopsitt"
+      container_name       = "tfstate"
+      key                  = "terraform.tfstate"
+  }
+
+}
+
 provider "azurerm" {
   features {}
 
@@ -10,7 +26,11 @@ provider "azurerm" {
 variable "client_secret" {
   type = string
 }
-
+/*
+variable "app_version" {
+  type = string
+}
+*/
 resource "azurerm_resource_group" "rg-container" {
   name     = "MyTFRssourceGroup-Container"
   location = "eastus"
