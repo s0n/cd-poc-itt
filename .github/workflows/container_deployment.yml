@@ -17,16 +17,16 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: configure client secret
-      run: export ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET"
+      run: export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
     
     - name: configure subscription id
-      run: export ARM_SUBSCRIPTION_ID="e4c9144b-b968-4637-ab69-8e867d33b201"
+      run: export ARM_SUBSCRIPTION_ID=e4c9144b-b968-4637-ab69-8e867d33b201
     
     - name: configure tenant id
-      run: export ARM_TENANT_ID="faa9a254-14cd-419d-9c55-f11ae45ca9b8"
+      run: export ARM_TENANT_ID=faa9a254-14cd-419d-9c55-f11ae45ca9b8
 
     - name: configure client id
-      run: export ARM_CLIENT_ID="4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
+      run: export ARM_CLIENT_ID=4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c
 
     - name: configure client id
       run: echo $ARM_CLIENT_ID
