@@ -29,7 +29,7 @@ jobs:
       run: export ARM_CLIENT_ID="4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
 
     - name: configure client id
-      run: printenv ARM_CLIENT_ID
+      run: echo $ARM_CLIENT_ID
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-container
