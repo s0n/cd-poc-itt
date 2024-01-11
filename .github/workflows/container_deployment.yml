@@ -16,15 +16,11 @@ jobs:
     - name: configure terraform env
       env:
         ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
-      run: |
-        export ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET"
-        export ARM_SUBSCRIPTION_ID="e4c9144b-b968-4637-ab69-8e867d33b201"
-        export ARM_TENANT_ID="faa9a254-14cd-419d-9c55-f11ae45ca9b8"
-        export ARM_CLIENT_ID="4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
+      run: export ARM_CLIENT_SECRET="$ARM_CLIENT_SECRET" && export ARM_SUBSCRIPTION_ID="e4c9144b-b968-4637-ab69-8e867d33b201" && export ARM_TENANT_ID="faa9a254-14cd-419d-9c55-f11ae45ca9b8" && export ARM_CLIENT_ID="4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform init
+      run: terraform init -reconfigure
 
     - name: Try terraform plan
       env:
