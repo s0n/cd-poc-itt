@@ -5,7 +5,7 @@ terraform {
       version = "~>3.0"
     }
   }
-  backend "azurerm" {
+  backend "remote-backend" {
       resource_group_name  = "poc-ressource-group"
       storage_account_name = "tfstatepocdevopsitt"
       container_name       = "tfstate"
@@ -17,10 +17,10 @@ terraform {
 provider "azurerm" {
   features {}
 
-  subscription_id = "e4c9144b-b968-4637-ab69-8e867d33b201"
-  tenant_id       = "faa9a254-14cd-419d-9c55-f11ae45ca9b8"
-  client_id       = "4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
-  client_secret   = var.client_secret
+  //subscription_id = "e4c9144b-b968-4637-ab69-8e867d33b201"
+  //tenant_id       = "faa9a254-14cd-419d-9c55-f11ae45ca9b8"
+  //client_id       = "4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
+  //client_secret   = var.client_secret
 }
 
 variable "client_secret" {
