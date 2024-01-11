@@ -6,6 +6,9 @@ on:
 
 env:
   ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
+  ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
+  ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
+  ARM_CLIENT_ID: ${{  secrets.ARM_CLIENT_ID  }}
 
 jobs:
   
@@ -20,13 +23,13 @@ jobs:
       run: export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
     
     - name: configure subscription id
-      run: export ARM_SUBSCRIPTION_ID=e4c9144b-b968-4637-ab69-8e867d33b201
+      run: export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
     
     - name: configure tenant id
-      run: export ARM_TENANT_ID=faa9a254-14cd-419d-9c55-f11ae45ca9b8
+      run: export ARM_TENANT_ID=$ARM_TENANT_ID
 
     - name: configure client id
-      run: export ARM_CLIENT_ID=4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c
+      run: export ARM_CLIENT_ID=$ARM_CLIENT_ID
 
     - name: configure client id
       run: |
