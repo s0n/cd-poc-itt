@@ -54,32 +54,6 @@ resource "azurerm_container_group" "container-poc" {
   }
 
   tags = {
-    environment = "PROD"
+    environment = "${env}"
   }
 }
-
-/*
-# Deployment in TEST env
-resource "azurerm_container_group" "container-poc" {
-  name                = "test-poc-container-group"
-  location            = azurerm_resource_group.rg-container.location
-  resource_group_name = azurerm_resource_group.rg-container.name
-  dns_name_label      = "ITT-POC-DevOps"
-  os_type             = "Linux"
-
-  container {
-    name   = "poc-devops-container"
-    image  = "sngbango/app-poc:${application_version}"
-    cpu    = "0.5"
-    memory = "1.5"
-    ports {
-      port     = 3000
-      protocol = "TCP"
-    }
-  }
-
-  tags = {
-    environment = "TEST"
-  }
-}
-*/
