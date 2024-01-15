@@ -3,12 +3,17 @@ name: container deployment
 
 on:
   workflow_dispatch:
-
-env:
-  ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
-  ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
-  ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
-  ARM_CLIENT_ID: ${{  secrets.ARM_CLIENT_ID  }}
+    inputs:
+      Environnement:
+        type: choice
+        description: 'Deployment environment'
+        options:
+          - prod
+          - dev
+        required: true
+      App version:
+        description: 'application version'
+        required: true
 
 jobs:
   
@@ -19,24 +24,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: configure client secret
-      run: export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
-    
-    - name: configure subscription id
-      run: export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
-    
-    - name: configure tenant id
-      run: export ARM_TENANT_ID=$ARM_TENANT_ID
-
-    - name: configure client id
-      run: export ARM_CLIENT_ID=$ARM_CLIENT_ID
-
-    - name: configure client id
+    - name: set azure credentials
+      env:
+        ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
+        ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
+        ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
+        ARM_CLIENT_ID: ${{  secrets.ARM_CLIENT_ID  }}
       run: |
-        echo $ARM_CLIENT_ID
-        echo $ARM_TENANT_ID
-        echo $ARM_SUBSCRIPTION_ID
-        echo $ARM_CLIENT_SECRET
+        export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
+        export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
+        export ARM_TENANT_ID=$ARM_TENANT_ID
+        export ARM_CLIENT_ID=$ARM_CLIENT_ID
 
     - name: Initialize Terraform
       working-directory: ./containerization/infrastructure/deploy-container
@@ -44,8 +42,8 @@ jobs:
 
     - name: Try terraform plan
       working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform plan -var client_secret="$ARM_CLIENT_SECRET"
+      run: terraform plan -var application_version
 
     - name: Deploy on azure container service
       working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform apply -var client_secret="$ARM_CLIENT_SECRET" -auto-approve
+      run: terraform apply -auto-approve

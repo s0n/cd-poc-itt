@@ -5,47 +5,42 @@ terraform {
       version = "~>3.0"
     }
   }
+
+  #Before use remote backend you have to create a storage account and storage container on azure
   backend "azurerm" {
-      resource_group_name  = "poc-ressource-group"
-      storage_account_name = "tfstatepocdevopsitt"
-      container_name       = "tfstatetest"
-      key                  = "terraform.tfstate"
+    resource_group_name  = "poc-ressource-group"
+    storage_account_name = "tfstatepocdevopsitt"
+    container_name       = "tfstatetest"
+    key                  = "terraform.tfstate"
   }
 
 }
 
 provider "azurerm" {
   features {}
-
-//  subscription_id = "e4c9144b-b968-4637-ab69-8e867d33b201"
-//  tenant_id       = "faa9a254-14cd-419d-9c55-f11ae45ca9b8"
-//  client_id       = "4ef7c402-cf28-4739-b2f3-76a5d6cb0e5c"
-//  client_secret   = var.client_secret
 }
 
-variable "client_secret" {
+variable "application_version" {
   type = string
 }
-/*
-variable "app_version" {
-  type = string
-}
-*/
+
+
 resource "azurerm_resource_group" "rg-container" {
   name     = "MyTFRssourceGroup-Container"
   location = "eastus"
 }
 
+# Deployment in PROD env
 resource "azurerm_container_group" "container-poc" {
-  name                = "poc-container-group"
+  name                = "prod-poc-container-group"
   location            = azurerm_resource_group.rg-container.location
   resource_group_name = azurerm_resource_group.rg-container.name
   dns_name_label      = "ITT-POC-DevOps"
-  os_type    = "Linux"
+  os_type             = "Linux"
 
   container {
     name   = "poc-devops-container"
-    image  = "sngbango/app-poc:latest"
+    image  = "sngbango/app-poc:${application_version}"
     cpu    = "0.5"
     memory = "1.5"
     ports {
@@ -55,6 +50,32 @@ resource "azurerm_container_group" "container-poc" {
   }
 
   tags = {
-    environment = "dev"
+    environment = "PROD"
   }
 }
+
+/*
+# Deployment in TEST env
+resource "azurerm_container_group" "container-poc" {
+  name                = "test-poc-container-group"
+  location            = azurerm_resource_group.rg-container.location
+  resource_group_name = azurerm_resource_group.rg-container.name
+  dns_name_label      = "ITT-POC-DevOps"
+  os_type             = "Linux"
+
+  container {
+    name   = "poc-devops-container"
+    image  = "sngbango/app-poc:${application_version}"
+    cpu    = "0.5"
+    memory = "1.5"
+    ports {
+      port     = 3000
+      protocol = "TCP"
+    }
+  }
+
+  tags = {
+    environment = "TEST"
+  }
+}
+*/
