@@ -54,6 +54,6 @@ resource "azurerm_container_group" "container-poc" {
   }
 
   tags = {
-    environment = "${env}"
+    environment = "${var.env}"
   }
 }
