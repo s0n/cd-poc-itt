@@ -36,7 +36,7 @@ resource "azurerm_resource_group" "rg-container" {
 
 # Deployment in PROD env
 resource "azurerm_container_group" "container-poc" {
-  name                = "${env}-poc-container-group"
+  name                = "${var.env}-poc-container-group"
   location            = azurerm_resource_group.rg-container.location
   resource_group_name = azurerm_resource_group.rg-container.name
   dns_name_label      = "ITT-POC-DevOps"
@@ -44,7 +44,7 @@ resource "azurerm_container_group" "container-poc" {
 
   container {
     name   = "poc-devops-container"
-    image  = "sngbango/app-poc:${application_version}"
+    image  = "sngbango/app-poc:${var.application_version}"
     cpu    = "0.5"
     memory = "1.5"
     ports {
