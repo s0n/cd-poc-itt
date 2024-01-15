@@ -4,14 +4,14 @@ name: container deployment
 on:
   workflow_dispatch:
     inputs:
-      Environnement:
+      env:
         type: choice
         description: 'Deployment environment'
         options:
           - prod
-          - dev
+          - test
         required: true
-      App version:
+      version:
         description: 'application version'
         required: true
 
@@ -24,26 +24,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: set azure credentials
-      env:
-        ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
-        ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
-        ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
-        ARM_CLIENT_ID: ${{  secrets.ARM_CLIENT_ID  }}
-      run: |
-        export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
-        export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
-        export ARM_TENANT_ID=$ARM_TENANT_ID
-        export ARM_CLIENT_ID=$ARM_CLIENT_ID
-
-    - name: Initialize Terraform
-      working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform init
-
-    - name: Try terraform plan
-      working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform plan -var application_version
-
-    - name: Deploy on azure container service
-      working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform apply -auto-approve
+    - name:
+      run: echo "${{ github.event.inputs.version }}"
+    
+    - name:
+      run: echo "${{ github.event.inputs.env }}"

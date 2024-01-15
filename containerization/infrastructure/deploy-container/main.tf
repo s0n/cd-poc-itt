@@ -24,6 +24,10 @@ variable "application_version" {
   type = string
 }
 
+variable "env" {
+  type = string
+}
+
 
 resource "azurerm_resource_group" "rg-container" {
   name     = "MyTFRssourceGroup-Container"
@@ -32,7 +36,7 @@ resource "azurerm_resource_group" "rg-container" {
 
 # Deployment in PROD env
 resource "azurerm_container_group" "container-poc" {
-  name                = "prod-poc-container-group"
+  name                = "${env}-poc-container-group"
   location            = azurerm_resource_group.rg-container.location
   resource_group_name = azurerm_resource_group.rg-container.name
   dns_name_label      = "ITT-POC-DevOps"
