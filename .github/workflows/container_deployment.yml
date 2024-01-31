@@ -46,10 +46,14 @@ jobs:
       working-directory: ./containerization/infrastructure/deploy-container
       run: terraform init
 
+    - name: creation of workspace (if workspace does not exist)
+      run: terraform workspace create ${{  github.event.inputs.env  }}
+      continue-on-error: true
+
     - name: Try terraform plan
       working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform plan -var application_version=${{ github.event.inputs.version }} -var env=${{  github.event.inputs.env  }}
+      run: terraform plan -var application_version=${{ github.event.inputs.version }}
 
     - name: Deploy on azure container service
       working-directory: ./containerization/infrastructure/deploy-container
-      run: terraform apply -var application_version=${{ github.event.inputs.version }} -var env=${{  github.event.inputs.env  }} -auto-approve
+      run: terraform apply -var application_version=${{ github.event.inputs.version }} -auto-approve
