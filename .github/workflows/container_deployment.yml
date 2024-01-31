@@ -57,10 +57,10 @@ jobs:
     - name: check workspace
       run: terraform workspace show
 
-#    - name: Try terraform plan
-#      working-directory: ./containerization/infrastructure/deploy-container
-#      run: terraform plan -var application_version=${{ github.event.inputs.version }}
+    - name: Try terraform plan
+      working-directory: ./containerization/infrastructure/deploy-container
+      run: terraform plan -var application_version=${{ github.event.inputs.version }}
 
-#    - name: Deploy on azure container service
-#      working-directory: ./containerization/infrastructure/deploy-container
-#      run: terraform apply -var application_version=${{ github.event.inputs.version }} -auto-approve
+    - name: Deploy on azure container service
+      working-directory: ./containerization/infrastructure/deploy-container
+      run: terraform apply -var application_version=${{ github.event.inputs.version }} -auto-approve
