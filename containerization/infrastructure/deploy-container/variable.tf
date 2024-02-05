@@ -3,9 +3,3 @@ variable "application_version" {
   type = string
   
 }
-
-/*variable "env" {
-  description = "envirenment where to deploy application. It must be prod or test"
-  type = string
-  default = "test"
-}*/

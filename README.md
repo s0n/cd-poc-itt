@@ -1,17 +1,19 @@
 # PoC DevOps ITT
-Ce repo contient le PoC associé à la formation Devops ITT.
+xxx
 
 ### Descritpion de repo
 
-- Dossier **Continious Deployment**
-
-    - contient le code Terraform création de ressource sur Azure 
+- La **racine de repo** contient le code de l'application à dépoyer
+- Le dossier **Continious Deployment** : contient Terraform création de ressource sur Azure
+- Le dossier **.gihub/workflows** : contien les workflows qui permettent d'automatiser certaines actions
+    - **build.yml** : build l'application et faire passer tests d'intégration et de qualité de code
+    - **build-image.yml** : Construire une image docker et la déposer dans un registre de conteneur
+    - **azure-deploy.yml** : dépoyer une application via le service de conteneurisation d'Azure
 
 ### Prérequis
 - Avoir un compte utilisateur Azure (Contibutor role)
 - Avoir un accès programmatic à Azure (Azure principal) : cet acces sera utilisé par Terraform pour gérer automatiquement les ressoures Azure via le pipeline Github Action.
-
-Pour plus d'information, voir la [Documentation d'Azure](https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash#create-a-service-principal) 
+Pour plus d'information, voir la [Documentation d'Azure](https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash#create-a-service-principal)
 
 ## Comment lancer le PoC ?
 
@@ -48,7 +50,6 @@ L'exécution du pipeline déploiera la version sélectionnée (0.1 dans notre ex
 #TODO (Martin)
 - Tests d'intégration
 - Test de qualité de code
-Donner un cas de test échoué
 
 ### 4 - BUILD
 #### Description
@@ -65,7 +66,7 @@ Note : Pour les besoins du POC, nous utilisons temporairement [Docker Hub](https
 Cette étape permet de déployer la dernière version de l'application en environnement de Test.
 
 #### Comment lancer le workflow ?
-Lancer le pipeline **container deployment** avec le paramètres :
+Dans l'onglet "**Action**" du repo git, lancer le workflow **container deployment** avec les paramètres :
 - Deployment environment : **test**
 - Application version : **latest**
 
@@ -80,7 +81,7 @@ A la fin de l'exécution du workflow, vous pouvez vérifier que la dernière ver
 Cette étape permet de déployer la dernière version de l'application en environnement de Production.
 
 #### Comment lancer le workflow ?
-Lancer le pipeline **container deployment** avec le paramètres :
+Dans l'onglet "**Action**" du repo git, lancer le workflow **container deployment** avec les paramètres :
 - Deployment environment : **prod**
 - Application version : **latest**
 
