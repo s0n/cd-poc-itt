@@ -28,6 +28,7 @@ Pour plus d'information, voir la [Documentation d'Azure](https://learn.microsoft
     - Deployment environment : **all**
     - Application version : **0.1**
 
+![plot](./images/all-initialisation.png)
 L'exécution du pipeline déploiera la version 0.1 de l'application dans les environnements de **prod** et de **test**
 
 Url vers l'environnement de prod : http://prod-itt-poc-devops.eastus.azurecontainer.io:3000/
