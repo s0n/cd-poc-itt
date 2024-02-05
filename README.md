@@ -15,7 +15,7 @@ Pour plus d'information, voir la [Documentation d'Azure](https://learn.microsoft
     * Container registry token
 
 ### 1 - Initialisation du PoC
-- remote backend (à faire en local)
+- Initialisation des configuration de Terraform (à faire en local)
     - #TODO
 
 - Lancer le pipeline Container deployment avec les paramètres ci-dessous :
@@ -28,7 +28,7 @@ Url vers l'environnement de prod : http://prod-itt-poc-devops.eastus.azurecontai
 
 Url vers l'environnement de test : http://test-itt-poc-devops.eastus.azurecontainer.io:3000/
 
-### 2 - nouvelle fonctionnalité ou correction d'un bug
+### 2 - Ticket pour nouvelle fonctionnalité
 
 ### 3 - Code
 
@@ -53,4 +53,4 @@ Lancer le pipeline **container deployment avec le paramètres :
 - Deployment environment : **prod**
 - Application version : **latest**
 
-#TODO ajouter capture d'écran
+#TODO(Soulémanou) ajouter capture d'écran
