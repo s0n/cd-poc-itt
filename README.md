@@ -1,6 +1,12 @@
 # PoC DevOps ITT
 Ce repo contient le PoC associé à la formation Devops ITT.
 
+### Descritpion de repo
+
+- Dossier **Continious Deployment**
+
+    - contient le code Terraform création de ressource sur Azure 
+
 ### Prérequis
 - Avoir un compte utilisateur Azure (Contibutor role)
 - Avoir un accès programmatic à Azure (Azure principal) : cet acces sera utilisé par Terraform pour gérer automatiquement les ressoures Azure via le pipeline Github Action.
@@ -18,7 +24,7 @@ Pour plus d'information, voir la [Documentation d'Azure](https://learn.microsoft
 - Initialisation des configuration de Terraform (à faire en local)
     - #TODO
 
-- Lancer le pipeline Container deployment avec les paramètres ci-dessous :
+- Lancer le pipeline (**Run workflow**) Container deployment avec les paramètres ci-dessous :
     - Deployment environment : **all**
     - Application version : **0.1**
 
@@ -29,16 +35,16 @@ Url vers l'environnement de prod : http://prod-itt-poc-devops.eastus.azurecontai
 Url vers l'environnement de test : http://test-itt-poc-devops.eastus.azurecontainer.io:3000/
 
 ### 2 - Ticket pour nouvelle fonctionnalité
-
+#TODO : nouvelle fonctionalité ou correction de bug
 ### 3 - Code
-
+#TODO : mettre à jour le code, nouvelle branche, merge, ...
 ### 4 - Test & Build
 #### Test
 - Tests d'intégration
 - Test de qualité de code
+Donner un cas de test échoué
 #### Build
-- Contruction d'une nouvelle image de conteneur
-- ajout de l'image dans le registre de conteneur
+- Construction d'une nouvelle image de conteneur : **Pipeline image build**
 
 ### 5 - Déploiement en environnement de TEST
 Lancer le pipeline **container deployment avec le paramètres :
@@ -54,3 +60,6 @@ Lancer le pipeline **container deployment avec le paramètres :
 - Application version : **latest**
 
 #TODO(Soulémanou) ajouter capture d'écran
+
+
+### 7 - Supprimer les ressources
