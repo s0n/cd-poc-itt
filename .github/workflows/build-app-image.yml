@@ -2,6 +2,11 @@ name: Build docker image
 
 on:
   workflow_dispatch:
+    inputs:
+      image_version:
+        type: number
+        description: 'image version to build (ex: 0.0)'
+        required: true
 
 jobs:
 
@@ -29,7 +34,7 @@ jobs:
       
     - name: build docker image
       working-directory: ./containerization/image-build
-      run: docker build . --tag sngbango/app-poc:latest
+      run: docker build . --tag sngbango/app-poc:${{  github.event.inputs.image_version  }}
 
     - name: Push images
-      run: docker push sngbango/app-poc:latest
+      run: docker push sngbango/app-poc:${{  github.event.inputs.image_version  }}
