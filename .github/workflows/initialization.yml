@@ -3,18 +3,6 @@ name: POC initialization
 
 on:
     workflow_dispatch:
-        inputs:
-          env:
-            type: choice
-            description: 'Deployment environment'
-            options:
-              - prod
-              - test
-              - all
-            required: true
-          version:
-            description: 'application version'
-            required: true
 
 env:
   ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
